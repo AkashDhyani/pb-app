@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, SafeAreaView
 import { useDispatch, useSelector } from "react-redux";
 import { getUserRequest } from "../redux/actions";
 import { useNavigation } from "@react-navigation/native";
+import { constants } from "../utils/constants";
+import Styles from '../config/styles';
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
@@ -32,16 +34,16 @@ const HomeScreen = () => {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('Detail', {id: item.id})}>
+            <TouchableOpacity style={Styles.list.listItem} onPress={() => navigation.navigate('Detail', {id: item.id})}>
                 <View>
                     <Image source={{ uri: item.avatar }}
-                        style={styles.avatar} />
+                        style={Styles.list.avatar} />
                 </View>
                 <View>
                     <Text>
-                        <Text style={styles.itemName}>{item.first_name}</Text>
+                        <Text style={Styles.list.itemName}>{item.first_name}</Text>
                         <Text>{" "}</Text>
-                        <Text style={styles.itemName}>{item.last_name}</Text>
+                        <Text style={Styles.list.itemName}>{item.last_name}</Text>
                     </Text>
                     <Text >{item.email}</Text>
                 </View>
@@ -62,9 +64,9 @@ const HomeScreen = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.innerContainer}>
-                <Text style={styles.title}>Users List</Text>
+        <SafeAreaView style={Styles.list.container}>
+            <View style={Styles.list.innerContainer}>
+                <Text style={Styles.list.title}>{constants.USERSLIST}</Text>
                 <FlatList data={users}
                     renderItem={renderItem}
                     onEndReached={loadMore}
@@ -76,52 +78,6 @@ const HomeScreen = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#c9d2ff'
-    },
-    innerContainer: {
-        width: '90%',
-        alignSelf: 'center',
-        marginBottom: 40
-    },
-    title: {
-        fontSize: 34,
-        fontWeight: 'bold',
-        marginVertical: 25,
-        alignSelf: 'center'
-    },
-    listItem: {
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 4
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4.84,
-        elevation: 5,
-        width: '99%',
-        alignSelf: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        paddingLeft: 10,
-        paddingVertical: 18,
-        marginBottom: 30,
-        borderColor: '#d8d8d8',
-        flexDirection: "row"
-    },
-    itemName: {
-        fontSize: 22,
-        fontWeight: 'bold'
-    },
-    avatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 60,
-        marginRight: 15
-    }
-});
+const styles = StyleSheet.create({});
 
 export default HomeScreen;
